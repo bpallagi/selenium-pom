@@ -124,3 +124,5 @@ dmypy.json
 .pyre/
 
 Src/TestBase/chromedriver.exe
+
+.vscode/
