@@ -9,19 +9,24 @@ from selenium.webdriver.common.by import By
 from Src.PageObject.Locators import Locator
 
 
-class Home(object):
+class LoginPage(object):
 
     def __init__(self, driver):
         self.driver = driver
-        self.search_text = driver.find_element(By.XPATH, Locator.search_text)
-        self.basic_web_page = driver.find_element(By.XPATH,
-                                                  Locator.basic_web_page)
+        self.login_username = driver.find_element(By.XPATH,
+                                                  Locator.login_username)
+        self.login_password = driver.find_element(By.XPATH,
+                                                  Locator.login_password)
+        self.login_button = driver.find_element(By.XPATH, Locator.login_button)
 
-    def getSearchText(self):
-        return self.search_text
+    def getLoginUsername(self):
+        return self.login_username
 
-    def getBasic(self):
-        return self.basic_web_page
+    def getLoginPassword(self):
+        return self.login_password
+
+    def getLoginButton(self):
+        return self.login_button
 
 
 class BasicPage(object):

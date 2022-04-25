@@ -12,7 +12,9 @@ class WebDriverSetup(unittest.TestCase):
         urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
         self.driver = webdriver.Chrome(r'Src\TestBase\chromedriver.exe')
         self.driver.implicitly_wait(10)
-        self.driver.maximize_window()
+        self.driver.set_window_size(800, 600)
+
+    #    self.driver.maximize_window()
 
     def tearDown(self):
         if (self.driver != None):
