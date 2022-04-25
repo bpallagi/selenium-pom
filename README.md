@@ -1,7 +1,6 @@
 Sample project for web and api testing
 
 Selenium + page object modell
-Python api testing withrequests package
 
 Please install these:
 
@@ -19,8 +18,7 @@ install python 3.8+
 pip install -U pytest pytest-html
 pip install -U selenium
 pip install -U chromedriver
-pip install -U requests
-pip install -U jsonschema
+pip install -U ddt
 
 Reporting:
 

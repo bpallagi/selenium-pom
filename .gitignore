@@ -126,3 +126,5 @@ dmypy.json
 Src/TestBase/chromedriver.exe
 
 .vscode/
+
+Test/TestSuite/screenshots/

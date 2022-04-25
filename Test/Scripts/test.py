@@ -1,6 +1,7 @@
 import sys
 import csv
 import time
+import logging
 
 sys.path.append(sys.path[0] + "/...")
 # import os
@@ -54,16 +55,27 @@ class shopping(WebDriverSetup):
         self.driver.get("https://www.saucedemo.com/")
         self.driver.set_page_load_timeout(30)
 
+        logger = logging.getLogger(__name__)
+        fileHandler = logging.FileHandler('Test/TestSuite/logfile.log')
+        formatter = logging.Formatter(
+            "%(asctime)s :%(levelname)s : %(name)s :%(message)s")
+        fileHandler.setFormatter(formatter)
+        logger.addHandler(fileHandler)
+        logger.setLevel(logging.INFO)
+
         try:
 
             loginPage = LoginPage(driver)
             shopping.custom_click(driver, loginPage.getLoginUsername(), 1)
             loginPage.getLoginUsername().send_keys(username)
+            logger.info("Step: Info")
             sleep(3)
             shopping.custom_click(driver, loginPage.getLoginPassword(), 1)
             loginPage.getLoginPassword().send_keys(password)
+            logger.info("Step: Info")
             sleep(3)
             shopping.custom_click(driver, loginPage.getLoginButton(), 1)
+            logger.info("Step: Info")
             sleep(3)
             loginPage.driver.get_screenshot_as_file(
                 "Test/TestSuite/screenshots/" + str(scrshot_name) + ".png")
@@ -81,6 +93,7 @@ class shopping(WebDriverSetup):
 
         except Exception as error:
             print(str(error) + "ERROR")
+            logger.error("Step:" + str(error) + "ERROR")
             loginPage.driver.get_screenshot_as_file(
                 "Test/TestSuite/screenshots/" + "ERROR" + str(scrshot_name) +
                 ".png")
