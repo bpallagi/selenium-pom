@@ -14,8 +14,6 @@ class WebDriverSetup(unittest.TestCase):
         self.driver.implicitly_wait(10)
         self.driver.set_window_size(800, 600)
 
-    #    self.driver.maximize_window()
-
     def tearDown(self):
         if (self.driver != None):
             print("Cleanup of test environment")
