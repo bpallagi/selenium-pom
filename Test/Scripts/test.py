@@ -14,7 +14,6 @@ from Src.TestBase.WebDriverSetup import WebDriverSetup
 from selenium.webdriver.common.by import By
 from Src.PageObject.Pages.HomePage import LoginPage
 from Src.PageObject.Pages.HomePage import ShopPage
-from Src.PageObject.Pages.HomePage import ShopPage_DD
 from ddt import ddt, data, unpack
 
 
@@ -47,9 +46,31 @@ class shopping(WebDriverSetup):
         driver.get_screenshot_as_file("Test/TestSuite/screenshots/" +
                                       str(scrshot_name) + ".png")
 
+    def verify_text_presetn(driver, text):
+        sourcetext = driver.page_source
+        print(text in sourcetext)
+
     @data(*get_data('Test\Scripts\products.csv'))
     @unpack
     def test_login(self, item, price, xpath, username, password):
+
+        min_value = 40.00
+        max_value = 60.00
+
+        f_price = float(price)
+        print(isinstance(f_price, float))
+
+        if min_value < float(price) < max_value:
+            print("Item value OK")
+        else:
+            print("Item value Not match the criterias")
+            exit()
+
+        item_lowercase = item.lower()
+        item_replace = item_lowercase.replace(" ", "-")
+        generate_xpath = "//button[@id='add-to-cart-" + item_replace + "']"
+        generate_xpath == xpath
+
         scrshot_name = int(round(time.time() * 1000))
         driver = self.driver
         self.driver.get("https://www.saucedemo.com/")
@@ -64,7 +85,6 @@ class shopping(WebDriverSetup):
         logger.setLevel(logging.INFO)
 
         try:
-
             loginPage = LoginPage(driver)
             shopping.custom_click(driver, loginPage.getLoginUsername(), 1)
             loginPage.getLoginUsername().send_keys(username)
@@ -81,10 +101,10 @@ class shopping(WebDriverSetup):
                 "Test/TestSuite/screenshots/" + str(scrshot_name) + ".png")
 
             shopPage = ShopPage(driver)
-
-            shopping.custom_click(driver, shopPage.getProduct_Backpack(), 1)
-            sleep(3)
-            shopping.custom_click(driver, shopPage.getProduct_RedTShirt(), 1)
+            shopping.verify_text_presetn(driver, "Product")
+            logger.info("Step: Info")
+            shopping.custom_click(
+                driver, shopPage.getProduct_DD(driver, generate_xpath), 1)
             sleep(3)
             shopping.custom_click(driver, shopPage.getCart_Button(), 1)
             loginPage.driver.get_screenshot_as_file(

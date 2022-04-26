@@ -50,12 +50,7 @@ class ShopPage(object):
     def getCart_Button(self):
         return self.cart_button
 
-
-class ShopPage_DD(object):
-
-    def __init__(self, driver, string):
+    def getProduct_DD(self, driver, xpath):
         self.driver = driver
-        self.product = driver.find_element(By.XPATH, string)
-
-    def getProduct(self, string):
-        return self.product
+        self.product_dd = driver.find_element(By.XPATH, xpath)
+        return self.product_dd
